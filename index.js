@@ -32,7 +32,7 @@ function amd(config) {
   ["currency", "date", "message", "number", "plural", "relative-time"].forEach(function(module) {
     requirejs("globalize/" + module);
   });
-  GlobalizeCompiler = require(path.join(requirejs.toUrl("globalize"), "../../tool/compiler"));
+  GlobalizeCompiler = require(path.join(requirejs.toUrl("globalize"), "../../tools/compiler"));
   React = requirejs("react");
   scope = {
     Globalize: Globalize,
@@ -122,7 +122,7 @@ function init() {
 
   // CommonJS setup.
   Globalize = require("globalize");
-  GlobalizeCompiler = require("globalize/tool/compiler");
+  GlobalizeCompiler = require("globalize/tools/compiler");
   React = require("react");
   scope = {
     Globalize: Globalize,
