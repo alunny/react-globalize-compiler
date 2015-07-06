@@ -28,7 +28,11 @@ module.exports = {
       return pathString.trim().replace(/\{/g, "(").replace(/\}/g, ")").replace(/\//g, "|").replace(/\n/g, " ").replace(/ +/g, " ").replace(/"/g, "'");
     }
 
-    path = eval("(" + escodegen.generate(getObjectKey(node.arguments[1], "path")) + ")");
+    if (path = getObjectKey(node.arguments[1], "scope")) {
+      path = eval("(" + escodegen.generate(path) + ")");
+    } else {
+      path = escodegen.generate(node.arguments[2]);
+    }
     path = sanitizePath(path);
 
     if (scope = getObjectKey(node.arguments[1], "scope")) {
