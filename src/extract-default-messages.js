@@ -1,7 +1,8 @@
 var esprima = require("esprima");
+var extend = require("util")._extend;
 var fs = require("fs");
-var visitors = require("./extract-default-messages-visitors/index");
 var transforms = require("./extract-default-messages-transforms/index");
+var visitors = require("./extract-default-messages-visitors/index");
 
 function traverse(ast, iterate) {
   JSON.stringify(ast, function(key, value) {
@@ -26,7 +27,7 @@ function traverse(ast, iterate) {
  */
 function extractor(input) {
   var ast;
-  var defaultMessages = [];
+  var defaultMessages = {};
 
   if (typeof input === "string") {
 
@@ -54,13 +55,13 @@ function extractor(input) {
 
   // Traverse AST and collect default messages.
   traverse(ast, function(node) {
-    defaultMessages = visitors.filter(function(visitor) {
+    extend(defaultMessages, visitors.filter(function(visitor) {
       return visitor.test(node);
     }).reduce(function(defaultMessages, visitor) {
       var aux = visitor.getDefaultMessage(node);
       defaultMessages[aux.path] = aux.message;
       return defaultMessages;
-    }, {});
+    }, {}));
   });
 
   return defaultMessages;

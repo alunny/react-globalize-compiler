@@ -14,7 +14,7 @@ module.exports = {
       node.callee.property.name === "formatMessage";
   },
 
-  getFormatterOrParser: function(node) {
+  getDefaultMessage: function(node) {
     /*jslint evil: true */
     var message = escodegen.generate(node.arguments[0]);
     return {
