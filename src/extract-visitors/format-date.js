@@ -1,5 +1,6 @@
 var escodegen = require("escodegen");
 var esprima = require("esprima");
+var getObjectKey = require("../util/get-object-key");
 
 var Syntax = esprima.Syntax;
 
@@ -20,10 +21,7 @@ module.exports = {
   },
 
   getFormatter: function(node) {
-    var options = node.arguments[1] && node.arguments[1].properties.filter(function(node) {
-        return node.key.name === "options";
-      })[0];
-
+    var options = getObjectKey(node.arguments[1], "options");
     return "Globalize.dateFormatter(" +
       (options ? escodegen.generate(options) : "") +
       ")";

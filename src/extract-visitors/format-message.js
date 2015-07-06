@@ -1,5 +1,6 @@
 var escodegen = require("escodegen");
 var esprima = require("esprima");
+var getObjectKey = require("../util/get-object-key");
 
 var Syntax = esprima.Syntax;
 
@@ -23,20 +24,14 @@ module.exports = {
     /*jslint evil: true */
     var path, scope;
 
-    function getKey(name) {
-      return node.arguments[1] && node.arguments[1].properties.filter(function(node) {
-        return node.key.name === name;
-      })[0];
-    }
-
     function sanitizePath(pathString) {
       return pathString.trim().replace(/\{/g, "(").replace(/\}/g, ")").replace(/\//g, "|").replace(/\n/g, " ").replace(/ +/g, " ").replace(/"/g, "'");
     }
 
-    path = eval("(" + escodegen.generate(getKey("path")) + ")");
+    path = eval("(" + escodegen.generate(getObjectKey(node.arguments[1], "path")) + ")");
     path = sanitizePath(path);
 
-    if (scope = getKey("scope")) {
+    if (scope = getObjectKey(node.arguments[1], "scope")) {
       scope = eval("(" + escodegen.generate(scope) + ")");
       path = [scope, path].join("/");
     }

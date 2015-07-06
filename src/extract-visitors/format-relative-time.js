@@ -1,5 +1,6 @@
 var escodegen = require("escodegen");
 var esprima = require("esprima");
+var getObjectKey = require("../util/get-object-key");
 
 var Syntax = esprima.Syntax;
 
@@ -23,14 +24,8 @@ module.exports = {
     var options;
     var args = [];
 
-    function getKey(name) {
-      return node.arguments[1] && node.arguments[1].properties.filter(function(node) {
-        return node.key.name === name;
-      })[0];
-    }
-
-    args.push(getKey("unit"));
-    if (options = getKey("options")) {
+    args.push(getObjectKey(node.arguments[1], "unit"));
+    if (options = getObjectKey(node.arguments[1], "options")) {
       args.push(options);
     }
 
