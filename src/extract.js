@@ -43,14 +43,17 @@ function extractor(input) {
     ast = input;
   }
 
-  // Traverse AST and collect formatters.
+  // Traverse AST and perform transforms.
   traverse(ast, function(node) {
     transforms.filter(function(visitor) {
       return visitor.test(node);
     }).forEach(function(visitor) {
       visitor.transform(node);
     });
+  });
 
+  // Traverse AST and collect formatters.
+  traverse(ast, function(node) {
     [].push.apply(formatters, visitors.filter(function(visitor) {
       return visitor.test(node);
     }).map(function(visitor) {

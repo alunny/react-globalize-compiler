@@ -10,13 +10,10 @@ module.exports = {
   test: function(node) {
     return node.type === Syntax.MemberExpression &&
       node.object.type === Syntax.Identifier &&
-      node.object.object.name === "_reactGlobalize";
+      node.object.name === "_reactGlobalize";
   },
 
   transform: function(node) {
-    node.object = {
-      type: Syntax.Identifier,
-      name: "ReactGlobalize"
-    };
+    node.object.name = "ReactGlobalize";
   }
 };
