@@ -31,7 +31,7 @@ module.exports = {
 
     return "Globalize.currencyFormatter(" +
       args.map(function(argumentNode) {
-        return escodegen.generate(argumentNode);
+        return escodegen.generate(argumentNode.properties.value);
       }).join(", ") +
       ")";
   }

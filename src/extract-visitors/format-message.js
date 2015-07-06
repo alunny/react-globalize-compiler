@@ -32,7 +32,7 @@ module.exports = {
     path = sanitizePath(path);
 
     if (scope = getObjectKey(node.arguments[1], "scope")) {
-      scope = eval("(" + escodegen.generate(scope) + ")");
+      scope = eval("(" + escodegen.generate(scope.properties.value) + ")");
       path = [scope, path].join("/");
     }
 

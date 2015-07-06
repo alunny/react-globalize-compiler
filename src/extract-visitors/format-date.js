@@ -23,7 +23,7 @@ module.exports = {
   getFormatter: function(node) {
     var options = getObjectKey(node.arguments[1], "options");
     return "Globalize.dateFormatter(" +
-      (options ? escodegen.generate(options) : "") +
+      (options ? escodegen.generate(options.properties.value) : "") +
       ")";
   }
 };

@@ -24,9 +24,9 @@ module.exports = {
     var options;
     var args = [];
 
-    args.push(getObjectKey(node.arguments[1], "unit"));
+    args.push(getObjectKey(node.arguments[1], "unit").properties.value);
     if (options = getObjectKey(node.arguments[1], "options")) {
-      args.push(options);
+      args.push(options.properties.value);
     }
 
     return "Globalize.relativeTimeFormatter(" +
