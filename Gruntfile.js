@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     pkg: pkg,
     jshint: {
       source: {
-        src: ["index.js"],
+        src: ["index.js", "src/**/*.js"],
       },
       grunt: {
         src: ["Gruntfile.js"],
