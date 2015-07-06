@@ -21,18 +21,21 @@ module.exports = {
       node.arguments[0].property.name === "FormatMessage";
   },
 
-  getFormatter: function(node) {
+  getDefaultMessage: function(node) {
     /*jslint evil: true */
-    var path, scope;
+    var message, path, scope;
 
-    path = eval("(" + escodegen.generate(node.arguments[2]) + ")");
-    path = sanitizePath(path);
+    message = eval("(" + escodegen.generate(node.arguments[2]) + ")");
+    path = sanitizePath(message);
 
     if (scope = getObjectKey(node.arguments[1], "scope")) {
       scope = eval("(" + escodegen.generate(scope.value) + ")");
       path = [scope, path].join("/");
     }
 
-    return "Globalize.messageFormatter(" + JSON.stringify(path) + ")";
+    return {
+      path: path,
+      message: message
+    };
   }
 };
