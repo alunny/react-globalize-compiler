@@ -20,7 +20,7 @@ module.exports = {
       node.arguments[0].property.name === "FormatNumber";
   },
 
-  getFormatterOrParser: function(node) {
+  getFormatter: function(node) {
     var options = node.arguments[1].properties.filter(function(node) {
         return node.key.name === "options";
       })[0];

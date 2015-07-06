@@ -8,19 +8,19 @@ var Syntax = esprima.Syntax;
  */
 module.exports = {
   test: function(node) {
-    return node.type === Syntax.MemberExpression &&
-      node.object.type === Syntax.Identifier &&
-      node.object.name === "_react2" &&
-      node.property.type === Syntax.Literal &&
-      node.property.value === "default";
+    return node.type === Syntax.CallExpression &&
+      node.callee.type === Syntax.MemberExpression &&
+      node.callee.object.type === Syntax.MemberExpression &&
+      node.callee.object.object.type === Syntax.Identifier &&
+      node.callee.object.object.name === "_react2" &&
+      node.callee.object.property.type === Syntax.Literal &&
+      node.callee.object.property.value === "default";
   },
 
   transform: function(node) {
-    node.object = {
-      object: {
-        type: Syntax.identifier,
-        name: "react"
-      }
+    node.callee.object = {
+      type: Syntax.Identifier,
+      name: "React"
     };
   }
 };

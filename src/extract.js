@@ -22,11 +22,11 @@ function traverse(ast, iterate) {
  *
  * @ast [Object]
  *
- * Return an array of formatters and parsers statically extracted from given input.
+ * Return an array of formatters statically extracted from given input.
  */
 function extractor(input) {
   var ast;
-  var formattersAndParsers = [];
+  var formatters = [];
 
   if (typeof input === "string") {
 
@@ -43,7 +43,7 @@ function extractor(input) {
     ast = input;
   }
 
-  // Traverse AST and collect formattersAndParsers.
+  // Traverse AST and collect formatters.
   traverse(ast, function(node) {
     transforms.filter(function(visitor) {
       return visitor.test(node);
@@ -51,15 +51,15 @@ function extractor(input) {
       visitor.transform(node);
     });
 
-    [].push.apply(formattersAndParsers, visitors.filter(function(visitor) {
+    [].push.apply(formatters, visitors.filter(function(visitor) {
       return visitor.test(node);
     }).map(function(visitor) {
-      return visitor.getFormatterOrParser(node);
+      return visitor.getFormatter(node);
     }));
   });
 
   /*jslint evil: true */
-  return new Function("Globalize", "return [" + formattersAndParsers.join(", ") + "];");
+  return new Function("Globalize", "return [" + formatters.join(", ") + "];");
 }
 
 module.exports = extractor;

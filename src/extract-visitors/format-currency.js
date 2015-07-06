@@ -20,7 +20,7 @@ module.exports = {
       node.arguments[0].property.name === "FormatCurrency";
   },
 
-  getFormatterOrParser: function(node) {
+  getFormatter: function(node) {
     var options;
     var args = [];
 

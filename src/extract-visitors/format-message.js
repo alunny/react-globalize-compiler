@@ -20,7 +20,7 @@ module.exports = {
       node.arguments[0].property.name === "FormatMessage";
   },
 
-  getFormatterOrParser: function(node) {
+  getFormatter: function(node) {
     /*jslint evil: true */
     var path, scope;
 
