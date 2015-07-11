@@ -13,11 +13,8 @@ module.exports = {
       node.callee.property.type === Syntax.Identifier &&
       node.callee.property.name === "createElement" &&
       Array.isArray(node.arguments) && node.arguments.length >= 1 &&
-      node.arguments[0].type === Syntax.MemberExpression &&
-      node.arguments[0].object.type === Syntax.Identifier &&
-      node.arguments[0].object.name === "ReactGlobalize" &&
-      node.arguments[0].property.type === Syntax.Identifier &&
-      node.arguments[0].property.name === "FormatRelativeTime";
+      node.arguments[0].type === Syntax.Identifier &&
+      node.arguments[0].name === "FormatRelativeTime";
   },
 
   getFormatter: function(node) {

@@ -14,11 +14,8 @@ module.exports = {
       node.callee.property.type === Syntax.Identifier &&
       node.callee.property.name === "createElement" &&
       Array.isArray(node.arguments) && node.arguments.length >= 3 &&
-      node.arguments[0].type === Syntax.MemberExpression &&
-      node.arguments[0].object.type === Syntax.Identifier &&
-      node.arguments[0].object.name === "ReactGlobalize" &&
-      node.arguments[0].property.type === Syntax.Identifier &&
-      node.arguments[0].property.name === "FormatMessage";
+      node.arguments[0].type === Syntax.Identifier &&
+      node.arguments[0].name === "FormatMessage";
   },
 
   getFormatter: function(node) {
