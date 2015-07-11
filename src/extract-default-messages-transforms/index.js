@@ -3,5 +3,5 @@ module.exports = [
   require("../extract-transforms/babel-react-globalize"),
 
   // Should run after babel transforms.
-  require("./react-globalize-fn-expression-into-fn-identifier")
+  require("../extract-transforms/react-globalize-fn-expression-into-fn-identifier")
 ];
