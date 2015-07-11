@@ -11,6 +11,16 @@ var fixtures = {
 };
 
 describe("Extract ReactGlobalize default messages", function() {
+  it("should extract default messages from React elements of the form <fn> identifiers (e.g., `React.createElement(FormatMessage, ...)`)", function() {
+    var defaultMessages = reactGlobalizeCompiler.extractDefaultMessages(fixtures.jsx1);
+    expect(defaultMessages).to.be.an("object");
+    expect(defaultMessages).to.include.keys(
+      "Standalone Number",
+      "For more information, see the [yarsk]YARSK Readme[|yarsk], [reactGlobalize]React Globalize Readme[|reactGlobalize], and [globalize]Globalize Readme[|globalize]."
+    );
+    expect(defaultMessages["For more information, see the [yarsk]YARSK Readme[|yarsk], [reactGlobalize]React Globalize Readme[|reactGlobalize], and [globalize]Globalize Readme[|globalize]."]).to.equal("For more information, see the [yarsk]YARSK Readme[/yarsk], [reactGlobalize]React Globalize Readme[/reactGlobalize], and [globalize]Globalize Readme[/globalize].");
+  });
+
   it("should extract default messages from babel-transformed-ES6-code", function() {
     var defaultMessages = reactGlobalizeCompiler.extractDefaultMessages(fixtures.es6);
     expect(defaultMessages).to.be.an("object");

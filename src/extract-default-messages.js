@@ -46,10 +46,10 @@ function extractor(input) {
 
   // Traverse AST and perform transforms.
   traverse(ast, function(node) {
-    transforms.filter(function(visitor) {
-      return visitor.test(node);
-    }).forEach(function(visitor) {
-      visitor.transform(node);
+    transforms.forEach(function(visitor) {
+      if (visitor.test(node)) {
+        visitor.transform(node);
+      }
     });
   });
 
